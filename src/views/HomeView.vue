@@ -61,7 +61,7 @@ export default {
         <div class="body">
           <div class="content">
             <img src="../assets/images/iphone.png" alt="" class="iphone">
-            <video src="../assets/images/video.MP4"
+            <video src="../assets/images/video.mp4"
                    class="video"
                    autoplay
                    muted
