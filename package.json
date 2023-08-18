@@ -2,7 +2,7 @@
   "name": "l",
   "version": "0.0.0",
   "private": true,
-  "homepage": "/pay-to-go/",
+  "homepage": "https://t1ep1l0t.github.io/paytogo_landing/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
