@@ -2,7 +2,7 @@
   "name": "l",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://t1ep1l0t.githab.io/pay-to-go/",
+  "homepage": "/pay-to-go/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
