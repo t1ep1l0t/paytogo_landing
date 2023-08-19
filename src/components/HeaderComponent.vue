@@ -8,19 +8,23 @@
                class="logotype"
           >
         </router-link>
-
         <ul class="list">
           <li class="item"
               v-for="(link, idx) of links"
               :key="idx"
           >
-            <button class="button"
-                    @click="scroll_to_ell(link.path)"
+            <a :href="`#${link.path}`" class="button"
+                    @click.prevent="scroll_to_ell(link.path)"
             >
               {{ link.name }}
-            </button>
+            </a>
           </li>
         </ul>
+        <div class="buttons">
+          <button class="connect">
+            Подключить Pay <span>to</span> Go
+          </button>
+        </div>
       </nav>
     </div>
   </header>
@@ -40,10 +44,10 @@ export default {
           name: 'Преимущества',
           path: 'advantages'
         },
-        {
-          name: 'Рестораны',
-          path: 'restoraunt'
-        },
+        // {
+        //   name: 'Рестораны',
+        //   path: 'restoraunt'
+        // },
         {
           name: 'Частые вопросы',
           path: 'faq'
@@ -69,10 +73,8 @@ export default {
 
 .header {
   width: 100%;
-  //background-color: $grey;
+  background-color: $dark;
   padding: 20px 0;
-  border-radius: 0 0 20px 20px;
-
 
   & .nav {
     display: flex;
@@ -81,18 +83,18 @@ export default {
     gap: 40px;
   }
   & .logotype {
-    max-width: 172px;
+    max-width: 120px;
     height: auto;
   }
   & .list {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
   }
   & .button {
-    padding: 10px 5px;
-    font-weight: 700;
-    font-size: 20px;
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 14px;
     color: #FFFFFF;
     position: relative;
 
@@ -106,14 +108,36 @@ export default {
       transition: width .3s ease;
       background-color: $orange;
     }
-
-    
     &:hover {
       color: $orange;
 
       &::before {
-        height: 5px;
+        height: 3px;
         width: 100%;
+      }
+    }
+  }
+  & .buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  & .connect {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: 1px solid #FFFFFF;
+
+    & span {
+      color: $orange;
+    }
+
+    &:hover {
+      border-color: $orange;
+      background-color: $orange;
+
+      & span {
+        color: $red;
       }
     }
   }
