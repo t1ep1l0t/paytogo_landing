@@ -10,14 +10,22 @@ export default {
   },
   data () {
     return {
-
+      menu: false,
     }
   },
+  methods: {
+    set_menu () {
+      this.menu = !this.menu
+    }
+  }
 }
 </script>
 
 <template>
-  <HeaderComponent />
+  <HeaderComponent
+      :menu="menu"
+      :set_menu="set_menu"
+  />
   <main class="main">
     <router-view />
   </main>
@@ -27,5 +35,11 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/variable.scss";
 
+.main {
+  margin-top: 86.19px;
 
+  @media(max-width: 576px) {
+    margin-top: 70.19px;
+  }
+}
 </style>
