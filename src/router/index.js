@@ -33,7 +33,10 @@ const router = createRouter({
       name: 'return_policy',
       component: ReturnPolicyView
     },
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  },
 })
 
 export default router
