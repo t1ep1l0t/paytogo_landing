@@ -1,10 +1,65 @@
 <script>
+import step_1 from '@/assets/images/step_1.jpg';
+import step_2 from '@/assets/images/step_2.jpg';
+import step_3 from '@/assets/images/step_3.jpg';
+
 const {log} = console;
 export default {
   name: 'Home',
+  props: {
+    set_modal: Function
+  },
   data () {
     return {
       scroll_top: false,
+      current_image: step_1,
+      steps: [
+        {
+          title: 'QR-код или NFC метка',
+          desc: 'С любого смартфона гости сканируют QR-код или NFC метку на своем столе, чтобы получить доступ к странице заказа',
+          image: step_1
+        },
+        {
+          title: 'Разделение счета',
+          desc: 'На странице заказа можно выбрать только свои позиции, либо разделить счет поровну',
+          image: step_2
+        },
+        {
+          title: 'Опата',
+          desc: 'Не дожидаясь официанта со счетом, гости могут быстро и безопасно оплатить заказ через PayToGo любым удобным для них способом',
+          image: step_3
+        },
+      ],
+      advantages: [
+        {
+          name: 'Экономия времени',
+          desc: 'До 15 мин экономии времени на стол'
+        },
+        {
+          name: 'Больше гостей',
+          desc: '1 официант обслуживает больше гостей'
+        },
+        {
+          name: 'Скорость',
+          desc: 'Быстрее сервис — лояльнее гости'
+        },
+        {
+          name: 'Все просто',
+          desc: 'Все в браузере, без скачивания приложения'
+        },
+        {
+          name: 'Выгода',
+          desc: 'Увеличение выручки на 7-10% за счёт быстрой скорости обслуживания гостей'
+        },
+        {
+          name: 'Официанты',
+          desc: 'Увеличение дохода официантов в 2 раза за счёт чаевых в приложении'
+        },
+        {
+          name: 'Технологии',
+          desc: 'Мы даём ресторанам доступ к технологиям в которые вложено более 100 млн. рублей'
+        },
+      ]
     }
   },
   methods: {
@@ -14,6 +69,9 @@ export default {
         top: 0,
         behavior: 'smooth'
       })
+    },
+    set_current_image (i) {
+      this.current_image = i.image
     }
   },
   mounted () {
@@ -54,7 +112,9 @@ export default {
           <img src="../assets/images/top-image.png" alt="" class="image">
         </div>
         <div class="buttons">
-          <button class="connect">
+          <button class="connect"
+                  @click="set_modal"
+          >
             Подключить Pay <span>to</span> Go
           </button>
           <a href="../assets/files/PayToGo_Presentation.pdf" download class="link">
@@ -70,16 +130,71 @@ export default {
 </section>
 <section class="section work" ref="work">
     <div class="container">
+      <h2 class="title">
+        Как работает PayToGo
+      </h2>
       <div class="inner">
         <div class="info">
-
+          <div class="step"
+               v-for="(step, idx) of steps"
+               :key="idx"
+               @mouseenter="set_current_image(step)"
+          >
+            <div class="step__inner">
+              <h3 class="name">
+                {{ step.title }}
+              </h3>
+              <p class="desc">
+                {{ step.desc }}
+              </p>
+              <div class="step__previews">
+                <img src="../assets/images/iphone.png"
+                     alt=""
+                     class="step__iphone"
+                     v-if="idx !== 0"
+                >
+                <img :src="step.image" alt="" class="step__image">
+              </div>
+            </div>
+          </div>
         </div>
         <div class="previews">
-
+          <img src="../assets/images/iphone.png"
+               alt=""
+               class="iphone"
+               v-if="current_image !== steps[0].image"
+          >
+          <img :src="current_image" alt="" class="image">
         </div>
       </div>
     </div>
   </section>
+<section class="section advantages">
+  <div class="container">
+    <div class="inner">
+      <div class="head">
+        <h2 class="title">
+          Почему с
+          Pay <span>to</span> Go
+          выгодно
+        </h2>
+      </div>
+      <div class="body">
+        <div class="advantage"
+             v-for="(advantage, idx) of advantages"
+             :key="idx"
+        >
+          <h4 class="advantage__name">
+            {{ advantage.name }}
+          </h4>
+          <span class="advantage__desc">
+            {{ advantage.desc }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <button class="scroll_top"
         v-if="scroll_top"
         @click="to_top"
@@ -280,20 +395,230 @@ export default {
 }
 
 .work {
-  min-height: 100vh;
   padding: 60px 0;
   position: relative;
-  background: #FFFFFF;
+  background: #383838;
 
+  & .title {
+    font-size: 36px;
+    color: $orange;
+    line-height: 150%;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
   & .inner {
     display: flex;
     align-items: center;
   }
   & .info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
 
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+  & .step {
+    width: 100%;
+
+    &__inner {
+      background-color: $dark;
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      align-items: start;
+      gap: 20px;
+      transition: all .3s ease;
+
+      &:hover {
+        background-color: $orange;
+
+        @media (max-width: 768px) {
+          background-color: $dark;
+        }
+      }
+
+      @media (max-width: 768px) {
+        max-width: none;
+        padding: 24px;
+      }
+    }
+    &__previews {
+      display: none;
+      position: relative;
+      height: 400px;
+      width: 220px;
+
+      @media (max-width: 768px) {
+        display: block;
+      }
+      @media(max-width: 576px) {
+        align-self: center;
+      }
+    }
+    &__image {
+      position: absolute;
+      top: 43px;
+      left: 32px;
+      width: auto;
+      height: 331px;
+      z-index: 1;
+      border-radius: 20px;
+    }
+    &__iphone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: auto;
+      height: 400px;
+      z-index: 2;
+      border-radius: 20px;
+    }
+  }
+  & .name {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 120%;
+    
+    @media(max-width: 768px) {
+      color: $orange;
+      display: block;
+      padding-bottom: 10px;
+      border-bottom: 4px solid $orange;
+    }
+  }
+  & .desc {
+    line-height: 150%;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  & .previews {
+    width: 50%;
+    height: 700px;
+    position: relative;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  & .iphone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 700px;
+    width: auto;
+    z-index: 2;
+  }
+  & .image {
+    position: absolute;
+    top: 76px;
+    left: 60px;
+    max-height: 567px;
+    width: auto;
+    border-radius: 20px;
+    z-index: 1;
   }
 }
 
+.advantages {
+  width: 100%;
+  min-height: 100vh;
+  padding: 60px 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    background-image: url('../assets/images/top_bg.jpeg');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgba(20, 20, 20, .8);
+  }
+  
+  & .inner {
+    height: 100%;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 40px;
+    justify-content: space-between;
+  }
+  & .head {
+    width: 100%;
+    text-align: center;
+  }
+  & .title {
+    font-size: 66px;
+    line-height: 150%;
+    font-weight: 700;
+    display: inline-block;
+
+
+    @media(max-width: 768px) {
+      font-size: 36px;
+    }
+    
+    & span {
+      color: $orange;
+    }
+  }
+  & .body {
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  & .advantage {
+    max-width: 360px;
+    width: 100%;
+    padding: 24px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+    background-color: $orange;
+
+    &__title {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 140%;
+    }
+    &__desc {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 150%;
+    }
+  }
+}
 
 .scroll_top {
   position: fixed;

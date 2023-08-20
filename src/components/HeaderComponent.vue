@@ -6,9 +6,12 @@
           <img src="../assets/images/logotype.png"
                alt="PayToGo"
                class="logotype"
+               @click="set_href('')"
           >
         </router-link>
-        <ul class="list">
+        <ul class="list"
+            v-if="!href"
+        >
           <li class="item"
               v-for="(link, idx) of links"
               :key="idx"
@@ -21,7 +24,9 @@
           </li>
         </ul>
         <div class="buttons">
-          <button class="connect">
+          <button class="connect"
+                  @click="set_modal"
+          >
             Подключить Pay <span>to</span> Go
           </button>
           <button class="burger"
@@ -59,7 +64,7 @@
           </a>
         </li>
       </ul>
-      <button class="button">
+      <button class="button" @click="set_modal">
         Подключить Pay <span>to</span> Go
       </button>
     </div>
@@ -71,7 +76,10 @@ export default {
   name: "HeaderComponent",
   props: {
     menu: Boolean,
-    set_menu: Function
+    set_menu: Function,
+    href: String | Boolean | Number,
+    set_href: Function,
+    set_modal: Function
   },
   data () {
     return {
@@ -88,11 +96,11 @@ export default {
         //   name: 'Рестораны',
         //   path: 'restoraunt'
         // },
-        {
-          name: 'Частые вопросы',
-          path: 'faq'
-        },
-      ]
+        // {
+        //   name: 'Частые вопросы',
+        //   path: 'faq'
+        // },
+      ],
     }
   },
   methods: {
@@ -109,6 +117,9 @@ export default {
         behavior: 'smooth'
       })
     }
+  },
+  mounted() {
+
   }
 }
 </script>

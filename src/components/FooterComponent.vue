@@ -7,6 +7,7 @@
             <img src="../assets/images/logotype.png"
                  alt="PayToGo"
                  class="logotype"
+                 @click="set_href('')"
             >
           </router-link>
           <div class="info">
@@ -25,7 +26,9 @@
                     <path d="M10 7L15 12L10 17" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                   </g>
                 </svg>
-                <router-link :to="link.path" class="link">
+                <router-link :to="link.path" class="link"
+                             @click.prevent="set_href(1)"
+                >
                   {{ link.name }}
                 </router-link>
               </li>
@@ -57,6 +60,9 @@
 <script>
 export default {
   name: "FooterComponent",
+  props: {
+    set_href: Function
+  },
   data () {
     return {
       links: [
@@ -68,14 +74,14 @@ export default {
           name: 'Публичная Оферта',
           path: '/public-oferta'
         },
-        {
-          name: 'Порядок оплаты',
-          path: '/payment-procedure'
-        },
-        {
-          name: 'Парвила возврата',
-          path: '/return-policy'
-        },
+        // {
+        //   name: 'Порядок оплаты',
+        //   path: '/payment-procedure'
+        // },
+        // {
+        //   name: 'Парвила возврата',
+        //   path: '/return-policy'
+        // },
       ]
     }
   }
